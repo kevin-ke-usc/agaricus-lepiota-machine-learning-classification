@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf2 Mushroom Classification (Part 1)
+\f1\b0 \
+\
+
+\f0\b I. Domain
+\f1\b0 \
+The objective is to use mushroom data to build a model that can classify mushrooms\
+as poisonous or edible. This data includes metrics such as cap-shape, cap-color, gill-\
+spacing, and odor for mushrooms from multiple habitats. The proposed models should\
+learn from this data and be able to classify any mushroom as edible or poisonous. The\
+model\'92s output will determine if a mushroom is safe to eat or not. Given that the\
+model\'92s output can mean the difference between life and death, it is important for the\
+model to be as accurate as possible.\
+\
+
+\f0\b II. Dataset
+\f1\b0 \
+The dataset contains 8,000+ instances with 22 attributes featuring categorical\
+mushroom data.\
+\
+
+\f0\b III. Problem Type
+\f1\b0 \
+This problem type can be considered supervised learning because the model is trained\
+with labeled examples. Since the model will use multiple features to make a prediction\
+(edible or poisonous) it is a binary classifier.\
+\
+
+\f0\b IV. Attributes
+\f1\b0 \
+Categorical Attributes: poisonous, cap-shape, cap-surface, cap-color, bruises, odor,\
+gill-attachment, gill-spacing, gill-size, gill-color, stalk-shape, stalk-root, stalk-surface-\
+above-ring, stalk-surface-below-ring, stalk-color-above-ring, stalk-color-below-ring,\
+veil-type, veil-color, ring-number, ring-type, spore-print-color, population, habitat\
+Missing Values: There are missing values for the Stalk Root attribute. I plan to remove\
+the rows with missing values.\
+\
+
+\f0\b V. ML Algorithm
+\f1\b0 \
+For my first algorithm, I have chosen KNeighborsClassifier because it works well on\
+non-linear data. As seen in the correlation matrix, there are no strong linear correlations\
+between my data. For my second algorithm, I have chosen GradientBoosterClassifier\
+because it is an ensemble method, meaning it utilizes multiple base estimators in order\
+to improve generalizability, usually resulting in better accuracy. Lastly, I have chosen\
+Support Vector Classification with a polynomial kernel type because it is memory\
+efficient and is known to handle non-linear data effectively.\
+\
+
+\f0\b VI. Correlations
+\f1\b0 \
+Below is the correlations found in my data:\
+habitat 0.297412\
+gill-size 0.215289\
+population 0.203882\
+cap-color 0.150741\
+cap-shape 0.053155\
+veil-color 0.047921\
+cap-surface 0.046859\
+ring-number 0.008615\
+gill-attachment -0.071945\
+ring-type -0.215200\
+gill-spacing -0.264160\
+stalk-root -0.291026\
+stalk-color-below-ring -0.308613\
+stalk-color-above-ring -0.317244\
+gill-color -0.318339\
+stalk-surface-below-ring -0.363604\
+stalk-surface-above-ring -0.375910\
+bruises -0.435562\
+odor -0.455566\
+spore-print-color -0.507034\
+stalk-shape -0.592446\
+\
+
+\f0\b VII. Transformers
+\f1\b0 \
+According to the mushroom data set being analyzed, the Stalk Root attribute had 2480\
+missing values. Changing the data type, next once the missing value has been\
+removed from the data. There are data types in the Mushroom dataset that take letter\
+forms or strings. For this data type to be used in an algorithm, it must be transformed\
+into a number form of data type which uses a Label Encoder, which preprocesses the\
+data from non-numeric labels to numeric labels. Next the data is then uniformly scaled\
+using StandardScaler. The preprocessing is done with the use of pipelines.\
+\
+
+\f0\b VIII. ML Algorithm
+\f1\b0 \
+After part 2, I decided to try more different algorithms to see if I can find any new\
+information about the data. These include Ada Boost Classifier, Logistic Regression,\
+Random Forest Classifier, and Multi-layered Perceptron. I noticed that all the models\
+that I tested performed fairly well, with SVC initially performing the best. I also noticed\
+that the reason my models were performing so well in part 2 was because I was\
+evaluating them based on the training sets that they were fitted to. I changed it so that\
+they are now being evaluated on unseen test data.\
+\
+
+\f0\b IX. Data Cleanup
+\f1\b0 \
+Cleaning the data involved removing approximately 2500 rows with missing values in\
+the \'93stalk-root\'94 column. I also relabeled the columns so that the data is easier to read.\
+For transformations, I applied a LabelEncoder transformer on the data to convert the\
+categorical values into integers. I then applied a StandardScalar transformer to the\
+data to standardize the scale of the values to be between 0 and 1.\
+\
+
+\f0\b X. Algorithm Tuning
+\f1\b0 \
+To tune my algorithms, I used GridSearchCV to find the best parameters that yield the\
+best accuracy score for each model. Interestingly, the tuning resulted in better results\
+for all models except SVC, which moved it from first place to second to last place.\
+Since GridSearchCV did not work for multi-layered perceptron, I just adjusted the\
+epoch number from 50 to 300 and increased the score from 94.67 to 99.77.\
+\
+
+\f0\b IV. Results
+\f1\b0 \
+To test my algorithms for overfitting, I performed a 10-fold cross validation on each\
+model. Using the test set created in main, I trained the models on 80 percent of the\
+data and tested them on 20 percent. Overall, all of the models performed exceptionally\
+well and I am confident that they can be generalized and used on unseen data, but the\
+algorithm that performed the best was K-nearest classifier.\
+\
+
+\f0\b V. Analysis of Results
+\f1\b0 \
+After performing many different tests with numerous machine learning algorithms, I\
+have learned that choosing the best model depends on how many you train. The more\
+models I test, the better chance that I will find a superior performing algorithm. I found\
+tuning the hyper parameters to be crucial in achieving higher scores for the models.}
